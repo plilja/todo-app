@@ -13,8 +13,8 @@ public class TodoController {
     private TaskRepository taskRepository;
 
     @RequestMapping("/")
-    public String home(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
-        Iterable<Task> tasks = taskRepository.findAll();
+    public String home(@RequestParam(value = "name", required = false, defaultValue = "") String name, Model model) {
+        Iterable<Task> tasks = taskRepository.findByNameContainingIgnoreCase(name);
         model.addAttribute("tasks", tasks);
         return "home";
     }
