@@ -18,4 +18,10 @@ public class TodoController {
         model.addAttribute("tasks", tasks);
         return "home";
     }
+
+    @RequestMapping("/create")
+    public String create(@RequestParam(value = "name", required = true) String name, @RequestParam(value = "description", required = true) String description, Model model) {
+        taskRepository.save(new Task(name, description));
+        return home("", model);
+    }
 }
