@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableWebMvc
 @Component
 public class TodoApplication implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
