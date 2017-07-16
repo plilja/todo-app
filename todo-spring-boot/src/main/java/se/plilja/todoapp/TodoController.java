@@ -23,7 +23,7 @@ public class TodoController {
     @RequestMapping("/create")
     public String create(@RequestParam(value = "name", required = true) String name, @RequestParam(value = "description", required = true) String description, Model model) {
         taskRepository.save(new Task(name, description));
-        return home("", model);
+        return "redirect:/";
     }
 
     @RequestMapping("/view_task/{taskId}/")
@@ -31,5 +31,11 @@ public class TodoController {
         Task task = taskRepository.findOne(taskId);
         model.addAttribute("task", task);
         return "view_task";
+    }
+
+    @RequestMapping("/close_task/{taskId}/")
+    public String closeTask(@PathVariable Long taskId, Model model) {
+        taskRepository.delete(taskId);
+        return "redirect:/";
     }
 }

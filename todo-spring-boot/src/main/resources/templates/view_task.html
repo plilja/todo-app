@@ -11,6 +11,7 @@
     <h1 th:text="${task.name}"></h1>
     <p th:text="${task.description}"></p>
     <p th:text="${task.createdDate}"></p>
+    <a th:href="'/close_task/' + ${task.id} + '/'">Close task</a>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>
