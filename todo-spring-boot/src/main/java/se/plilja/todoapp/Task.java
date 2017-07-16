@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 public class Task {
@@ -12,6 +14,7 @@ public class Task {
     private Long id;
     private String name;
     private String description;
+    private Date createdDate;
 
     // JPA magic
     protected Task() {}
@@ -19,6 +22,7 @@ public class Task {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+        this.createdDate = new Date(Calendar.getInstance().getTime().getTime());
     }
 
     public Long getId() {
@@ -31,5 +35,9 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
     }
 }
