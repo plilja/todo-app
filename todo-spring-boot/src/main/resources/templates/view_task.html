@@ -8,10 +8,27 @@
 
 <div th:replace="fragments/header :: header-content"/>
 <div class="container">
-    <h1 th:text="${task.name}"></h1>
-    <p th:text="${task.description}"></p>
-    <p th:text="${task.createdDate}"></p>
-    <a th:href="'/close_task/' + ${task.id} + '/'">Close task</a>
+    <div class="page-header">
+        <h1 th:text="${task.name}"></h1>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Description</div>
+        <div class="col-md-10">
+            <p th:text="${task.description}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Created date</div>
+        <div class="col-md-10">
+            <p th:text="${task.createdDate}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Close task</div>
+        <div class="col-md-10">
+            <a th:href="'/close_task/' + ${task.id} + '/'">Close task</a>
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>
