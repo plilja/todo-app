@@ -2,14 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>ToDo App!</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <div th:replace="fragments/head :: head"/>
 </head>
 <body>
 
+<div th:replace="fragments/header :: header-content"/>
 <div class="container">
-    <h1>ToDo App</h1>
+    <h1>Open tasks</h1>
 
     <div class="row">
         <ul th:each="task : ${tasks}">
@@ -32,7 +31,6 @@
     </form>
 </div>
 
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
