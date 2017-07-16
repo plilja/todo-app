@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${task.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${task.name}"></h1>
+    <p th:text="${task.description}"></p>
+    <a href="/">Home</a>
+</div>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
