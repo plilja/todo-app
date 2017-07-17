@@ -15,7 +15,7 @@
     <div class="row">
         <ul>
             <li th:each="task : ${tasks}">
-                <a th:href="${'view_task/' + task.id + '/'}" th:text="${task.name}"></a>
+                <a th:href="${'/view_task/' + task.id + '/'}" th:text="${task.name}"></a>
             </li>
         </ul>
     </div>
