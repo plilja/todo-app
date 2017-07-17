@@ -24,10 +24,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">Close task</div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <a th:href="'/close_task/' + ${task.id} + '/'">Close task</a>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a th:href="'/edit_begin/' + ${task.id} + '/'">Edit task</a>
+        </div>
+
     </div>
 </div>
 

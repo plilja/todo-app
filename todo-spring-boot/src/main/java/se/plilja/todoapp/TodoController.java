@@ -21,7 +21,10 @@ public class TodoController {
     }
 
     @RequestMapping("/create")
-    public String create(@RequestParam(value = "name", required = true) String name, @RequestParam(value = "description", required = true) String description, Model model) {
+    public String create(
+            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "description", required = true) String description,
+            Model model) {
         taskRepository.save(new Task(name, description));
         return "redirect:/";
     }
@@ -37,5 +40,25 @@ public class TodoController {
     public String closeTask(@PathVariable Long taskId, Model model) {
         taskRepository.delete(taskId);
         return "redirect:/";
+    }
+
+    @RequestMapping("/edit_begin/{taskId}/")
+    public String editBegin(@PathVariable Long taskId, Model model) {
+        Task task = taskRepository.findOne(taskId);
+        model.addAttribute("task", task);
+        return "edit_task";
+    }
+
+    @RequestMapping("/edit_save/{taskId}/")
+    public String editSave(
+            @PathVariable Long taskId,
+            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "description", required = true) String description,
+            Model model) {
+        Task task = taskRepository.findOne(taskId);
+        task.setName(name);
+        task.setDescription(description);
+        taskRepository.save(task);
+        return String.format("redirect:/view_task/%d/", task.getId());
     }
 }
