@@ -7,7 +7,9 @@ from .models import *
 
 
 def index(request):
-    return render(request, 'index.html', context={'tasks': Task.objects.all()})
+    name = request.GET.get('name', '')
+    tasks = Task.objects.filter(name__contains=name)
+    return render(request, 'index.html', context={'tasks': tasks})
 
 
 def create_task(request):
