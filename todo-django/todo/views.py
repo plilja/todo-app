@@ -1,13 +1,13 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from django.shortcuts import get_object_or_404, render
 import datetime
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from .models import *
 
 
 def index(request):
-    return render(request, 'index.html', context={'tasks' : Task.objects.all()})
+    return render(request, 'index.html', context={'tasks': Task.objects.all()})
 
 
 def create_task(request):
@@ -23,6 +23,10 @@ def create_task(request):
 
 def view_task(request, task_id):
     t = get_object_or_404(Task, id=task_id)
-    return render(request, 'view_task.html', context={'task' : t})
+    return render(request, 'view_task.html', context={'task': t})
 
 
+def close_task(request, task_id):
+    t = get_object_or_404(Task, id=task_id)
+    t.delete()
+    return HttpResponseRedirect('/')
