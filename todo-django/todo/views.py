@@ -30,3 +30,18 @@ def close_task(request, task_id):
     t = get_object_or_404(Task, id=task_id)
     t.delete()
     return HttpResponseRedirect('/')
+
+
+def edit_begin(request, task_id):
+    t = get_object_or_404(Task, id=task_id)
+    return render(request, 'edit_task.html', context={'task': t})
+
+
+def edit_save(request, task_id):
+    t = get_object_or_404(Task, id=task_id)
+    name = request.POST['name']
+    description = request.POST['description']
+    t.name = name
+    t.description = description
+    t.save()
+    return HttpResponseRedirect('/view_task/%s/' % task_id)
