@@ -2,6 +2,7 @@ import datetime
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 
 from .models import *
 
@@ -20,7 +21,7 @@ def create_task(request):
     t.description = description
     t.created_date = datetime.datetime.now().date()
     t.save()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('todo:index'))
 
 
 def view_task(request, task_id):
@@ -31,7 +32,7 @@ def view_task(request, task_id):
 def close_task(request, task_id):
     t = get_object_or_404(Task, id=task_id)
     t.delete()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('todo:index'))
 
 
 def edit_begin(request, task_id):
@@ -46,4 +47,4 @@ def edit_save(request, task_id):
     t.name = name
     t.description = description
     t.save()
-    return HttpResponseRedirect('/view_task/%s/' % task_id)
+    return HttpResponseRedirect(reverse('todo:view_task', args=(task_id,)))
