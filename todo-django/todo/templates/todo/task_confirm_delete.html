@@ -1,0 +1,15 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="submit">Are you sure you want to close this task?</label>
+                    <input id="submit" type="submit" value="Confirm"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

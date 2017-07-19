@@ -1,8 +1,9 @@
 import datetime
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
 
 from .models import *
 
@@ -10,7 +11,7 @@ from .models import *
 def index(request):
     name = request.GET.get('name', '')
     tasks = Task.objects.filter(name__contains=name)
-    return render(request, 'index.html', context={'tasks': tasks})
+    return render(request, 'todo/index.html', context={'tasks': tasks})
 
 
 def create_task(request):
@@ -24,25 +25,17 @@ def create_task(request):
     return HttpResponseRedirect(reverse('todo:index'))
 
 
-def view_task(request, task_id):
-    t = get_object_or_404(Task, id=task_id)
-    return render(request, 'view_task.html', context={'task': t})
+class ViewTaskView(generic.DetailView):
+    model = Task
+    template_name = 'todo/view_task.html'
 
 
-def close_task(request, task_id):
-    t = get_object_or_404(Task, id=task_id)
-    t.delete()
-    return HttpResponseRedirect(reverse('todo:index'))
+class CloseTaskView(generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy('todo:index')
 
 
-def edit_task(request, task_id):
-    t = get_object_or_404(Task, id=task_id)
-    try:
-        name = request.POST['name']
-        description = request.POST['description']
-        t.name = name
-        t.description = description
-        t.save()
-        return HttpResponseRedirect(reverse('todo:view_task', args=(task_id,)))
-    except KeyError:
-        return render(request, 'edit_task.html', context={'task': t})
+class EditTaskView(generic.UpdateView):
+    model = Task
+    fields = ['name', 'description']
+    template_name = 'todo/edit_task.html'
