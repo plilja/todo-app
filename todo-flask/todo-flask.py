@@ -6,8 +6,9 @@ app = Flask(__name__)
 
 tasks = []
 
-
 task_id_seq = 1
+
+
 class Task:
     def __init__(self, name, description):
         global task_id_seq
@@ -33,6 +34,13 @@ def index():
 def view_task(task_id):
     t = list(filter(lambda t: t.id == int(task_id), tasks))[0]
     return render_template('view_task.html', task=t)
+
+
+@app.route('/close_task/<task_id>/')
+def close_task(task_id):
+    t = list(filter(lambda t: t.id == int(task_id), tasks))[0]
+    tasks.remove(t)
+    return redirect('/')
 
 
 @app.route('/create_task/', methods=['POST'])
