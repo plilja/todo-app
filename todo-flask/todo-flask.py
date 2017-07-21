@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -23,6 +23,14 @@ def index():
         pass
     ts = list(filter(lambda t: name.lower() in t.name.lower(), tasks))
     return render_template('index.html', tasks=ts)
+
+
+@app.route('/create_task/', methods=['POST'])
+def create_task():
+    name = request.form['name']
+    description = request.form['description']
+    tasks.append(Task(name, description))
+    return redirect('/')
 
 
 if __name__ == '__main__':
