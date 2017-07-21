@@ -7,11 +7,15 @@ app = Flask(__name__)
 tasks = []
 
 
+task_id_seq = 1
 class Task:
     def __init__(self, name, description):
+        global task_id_seq
+        self.id = task_id_seq
         self.name = name
         self.description = description
         self.created_date = datetime.date.today()
+        task_id_seq += 1
 
 
 @app.route('/')
@@ -23,6 +27,12 @@ def index():
         pass
     ts = list(filter(lambda t: name.lower() in t.name.lower(), tasks))
     return render_template('index.html', tasks=ts)
+
+
+@app.route('/view_task/<task_id>/')
+def view_task(task_id):
+    t = list(filter(lambda t: t.id == int(task_id), tasks))[0]
+    return render_template('view_task.html', task=t)
 
 
 @app.route('/create_task/', methods=['POST'])
