@@ -51,6 +51,19 @@ def create_task():
     return redirect('/')
 
 
+@app.route('/edit_task/<task_id>/', methods=['GET', 'POST'])
+def edit_task(task_id):
+    t = list(filter(lambda t: t.id == int(task_id), tasks))[0]
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        t.name = name
+        t.description = description
+        return redirect('/view_task/%d/' % t.id)
+    else:
+        return render_template('edit_task.html', task=t)
+
+
 if __name__ == '__main__':
     tasks += [Task('Work out', '...')]
     tasks += [Task('Buy food', '...')]
