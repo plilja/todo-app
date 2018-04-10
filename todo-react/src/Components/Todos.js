@@ -1,34 +1,26 @@
-import React, { Component } from 'react';
-import Todo from './Todo';
+import React, { Component } from "react";
+import Todo from "./Todo";
+import { Link } from "react-router-dom";
 
-class Todos extends Component {
-    deleteTodo(id) {
-        this.props.deleteTodo(id);
-    }
-
-  render() {
-    let todos;
-    if(this.props.todos){
-      todos = this.props.todos.map(todo => {
-        return (
-          <Todo key={todo.title} todo={todo} deleteTodo={this.deleteTodo.bind(this)} />
-        );
-      });
-    }
-      
-    return (
-        <div>
-            <div className="page-header">
-                <h1>Open tasks</h1>
-            </div>
-            <div className="row">
-                  <ul>
-                    {todos}
-                  </ul>
-            </div>
-        </div>
-    );
-  }
+function Todos(props) {
+  return (
+    <div>
+      <div className="page-header">
+        <h1>Open tasks</h1>
+      </div>
+      <div className="row">
+        <ul>
+          {props.todos.map(todo => {
+            return (
+              <li className="Todo">
+                <Link to={`/view/${todo.id}`}>{todo.title}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 export default Todos;
